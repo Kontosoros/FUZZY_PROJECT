@@ -17,7 +17,7 @@ export const json = {
             },
             {
               type: "text",
-              name: "cigarettes",
+              name: "Cigarettes",
               title: "Cigarettes per Day (0 - 50):",
               startWithNewLine: false,
               isRequired: true,
@@ -35,7 +35,7 @@ export const json = {
           elements: [
             {
               type: "text",
-              name: "exercise",
+              name: "Exercise",
               title: "Exercise per Weeks (Days):",
               startWithNewLine: false,
               isRequired: true,
@@ -46,7 +46,7 @@ export const json = {
             {
               type: "text",
               isRequired: true,
-              name: "fastFood",
+              name: "Eating unhealthy",
               startWithNewLine: false,
               inputType: "number",
               title: "Eat Fast Food (Times per Week):",
@@ -56,7 +56,7 @@ export const json = {
             {
               type: "text",
               isRequired: true,
-              name: "anxiety",
+              name: "Anxiety",
               startWithNewLine: false,
               inputType: "number",
               title: "Anxiety (0 -100):",

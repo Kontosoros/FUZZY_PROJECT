@@ -3,8 +3,11 @@ from flask_cors import CORS
 from production import  use_the_model
 import sys
 import time
+from fuzzy_code import Fuzzy
 app = Flask(__name__)
 CORS(app)
+
+fuzzy = Fuzzy()
 
 ALLOWED_EXTENSIONS = set(['tiff', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 
@@ -27,8 +30,9 @@ def results():
 @app.route('/recommendations', methods=['POST'])
 def results_recommendations():
     data = request.json
-    print(data)
-    return data
+    result = fuzzy.compute(data['age'], data['Cigarettes'], data['Exercise'], data['Eating unhealthy'], data['Anxiety'])
+    print(result)
+    return str(result)
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
