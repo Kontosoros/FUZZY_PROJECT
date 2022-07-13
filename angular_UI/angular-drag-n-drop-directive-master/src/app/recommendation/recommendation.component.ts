@@ -26,7 +26,7 @@ export class RecommendationComponent implements OnInit {
     private recommendService: RecommendationsService,
     private router: Router
   ) {}
-  result: string[] = [];
+  result: string;
   results;
   @Output() submitSurvey = new EventEmitter<any>();
   @Input()
@@ -81,6 +81,35 @@ export class RecommendationComponent implements OnInit {
           // Or you may clear all messages:
           // options.showDataSavingClear();
           clearSurveyData(sender);
+          var response = xhr.responseText;
+          var element = document.createElement("div");
+          element.setAttribute("id", "response");
+          if (parseFloat(response) <= 25.0) {
+            element.setAttribute("style", "background-color: green");
+            element.appendChild(
+              document.createTextNode(
+                "\nYou are looking good!, your danger score is:\n"
+              )
+            );
+          } else if (parseFloat(response) <= 50.0) {
+            element.setAttribute("style", "background-color: yellow");
+            element.appendChild(
+              document.createTextNode(
+                "\nYou should eat more fruits!, your danger score is:\n"
+              )
+            );
+          } else {
+            element.setAttribute("style", "background-color: red");
+            element.appendChild(
+              document.createTextNode(
+                "\nYou should visit a Hospital!, your danger score is:\n"
+              )
+            );
+          }
+          element.appendChild(document.createTextNode(response + "%"));
+          document
+            .getElementById("surveyElement")
+            .firstElementChild.appendChild(element);
         } else {
           //Error
           options.showDataSavingError();
@@ -89,10 +118,6 @@ export class RecommendationComponent implements OnInit {
       };
       console.log(sender.data);
       xhr.send(JSON.stringify(sender.data));
-      if (xhr.readyState == XMLHttpRequest.DONE) {
-        this.result.push(xhr.responseText as string);
-        // console.log(this.result);
-      }
     });
     Survey.SurveyNG.render("surveyElement", { model: survey });
   }
